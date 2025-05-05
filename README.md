@@ -2,20 +2,27 @@
 
 ## 项目概述
 
-Link16通信系统是一个完整的战术数据链通信系统实现，包括消息处理、编码加密、物理层处理和仿真功能。本系统支持Link16标准的消息格式，并提供了从应用层到物理层的完整实现。
+Link16通信系统是一个完整的战术数据链通信系统实现，包括消息处理、编码加密、物理层处理和仿真功能。本系统支持Link16标准的消息格式，并提供了从应用层到物理层的完整实现。系统采用跨平台的CMake构建系统，可在Windows、Linux和macOS等多种操作系统上运行。
 
 ## 功能特点
 
 - **消息处理**：支持Link16标准的J系列消息格式，包括报头字、初始字、扩展字和继续字
 - **编码加密**：实现了Reed-Solomon编码、AES加密、奇偶校验和交织等功能
-- **物理层处理**：支持USRP硬件接口、多种调制方式、跳频和同步
-- **仿真功能**：提供端到端的无线链路仿真，包括各种信道模型和干扰模型
+- **物理层处理**：支持USRP硬件接口、多种调制方式（BPSK、QPSK）、跳频和同步
+- **仿真功能**：提供端到端的无线链路仿真，包括AWGN和瑞利衰落信道模型，以及误码率和吞吐量计算
 
 ## 项目结构
 
 ```
 link16/                                # 项目根目录
 ├── src/                               # 源代码目录
+│   ├── api/                           # API实现
+│   │   ├── Link16.cpp                 # 主API实现
+│   │   ├── MessageAPI.cpp             # 消息API实现
+│   │   ├── CodingAPI.cpp              # 编码API实现
+│   │   ├── PhysicalAPI.cpp            # 物理层API实现
+│   │   └── SimulationAPI.cpp          # 仿真API实现
+│   │
 │   ├── core/                          # 核心功能
 │   │   ├── types/                     # 基本数据类型
 │   │   │   ├── dataType.h             # 数据类型定义
@@ -33,7 +40,8 @@ link16/                                # 项目根目录
 │   │       ├── fileUtils.h            # 文件操作工具
 │   │       ├── fileUtils.cpp          # 文件操作实现
 │   │       ├── logger.h               # 日志工具
-│   │       └── logger.cpp             # 日志实现
+│   │       ├── logger.cpp             # 日志实现
+│   │       └── platform.h             # 平台相关工具
 │   │
 │   ├── protocol/                      # 协议层
 │   │   ├── message/                   # 消息处理
@@ -167,7 +175,10 @@ link16/                                # 项目根目录
 │   │           ├── FrameSynchronizer.h
 │   │           └── FrameSynchronizer.cpp
 │   │
-│   ├── simulation/                    # 仿真模块(新增)
+│   ├── simulation/                    # 仿真模块
+│   │   ├── EndToEndSimulation.h       # 端到端仿真接口
+│   │   ├── EndToEndSimulation.cpp     # 端到端仿真实现
+│   │   │
 │   │   ├── channel/                   # 信道模型
 │   │   │   ├── base/                  # 基础信道模型
 │   │   │   │   ├── ChannelModel.h     # 信道模型基类
@@ -177,37 +188,9 @@ link16/                                # 项目根目录
 │   │   │   │   ├── AWGNChannel.h
 │   │   │   │   └── AWGNChannel.cpp
 │   │   │   │
-│   │   │   ├── fading/                # 衰落信道
-│   │   │   │   ├── RayleighChannel.h  # 瑞利衰落
-│   │   │   │   ├── RayleighChannel.cpp
-│   │   │   │   ├── RicianChannel.h    # 莱斯衰落
-│   │   │   │   └── RicianChannel.cpp
-│   │   │   │
-│   │   │   └── multipath/             # 多径信道
-│   │   │       ├── MultipathChannel.h
-│   │   │       └── MultipathChannel.cpp
-│   │   │
-│   │   ├── interference/              # 干扰模型
-│   │   │   ├── jamming/               # 干扰
-│   │   │   │   ├── JammingModel.h
-│   │   │   │   └── JammingModel.cpp
-│   │   │   │
-│   │   │   └── coexistence/           # 共存干扰
-│   │   │       ├── CoexistenceModel.h
-│   │   │       └── CoexistenceModel.cpp
-│   │   │
-│   │   ├── scenarios/                 # 仿真场景
-│   │   │   ├── urban/                 # 城市环境
-│   │   │   │   ├── UrbanScenario.h
-│   │   │   │   └── UrbanScenario.cpp
-│   │   │   │
-│   │   │   ├── rural/                 # 乡村环境
-│   │   │   │   ├── RuralScenario.h
-│   │   │   │   └── RuralScenario.cpp
-│   │   │   │
-│   │   │   └── maritime/              # 海洋环境
-│   │   │       ├── MaritimeScenario.h
-│   │   │       └── MaritimeScenario.cpp
+│   │   │   └── fading/                # 衰落信道
+│   │   │       ├── RayleighChannel.h  # 瑞利衰落
+│   │   │       └── RayleighChannel.cpp
 │   │   │
 │   │   ├── metrics/                   # 性能指标
 │   │   │   ├── BER.h                  # 误码率
@@ -222,18 +205,7 @@ link16/                                # 项目根目录
 │   │       └── SimulationConfig.cpp
 │   │
 │   └── application/                   # 应用层
-│       ├── real/                      # 实际应用
-│       │   ├── Link16App.h            # 主应用类
-│       │   └── Link16App.cpp
-│       │
-│       ├── simulation/                # 仿真应用
-│       │   ├── SimulationApp.h        # 仿真应用类
-│       │   └── SimulationApp.cpp
-│       │
-│       ├── gui/                       # 图形界面(可选)
-│       │   ├── MainWindow.h           # 主窗口
-│       │   └── MainWindow.cpp
-│       │
+│       ├── Link16.cpp                 # Link16应用实现
 │       └── main.cpp                   # 主程序入口
 │
 ├── include/                           # 公共头文件
@@ -319,43 +291,96 @@ link16/                                # 项目根目录
 
 ### 编译项目
 
-```bash
-mkdir build && cd build
-cmake ..
-make
+#### Windows
+
+```batch
+# 使用提供的构建脚本
+build.bat
+
+# 或者手动构建
+mkdir build
+cd build
+cmake .. -DCMAKE_BUILD_TYPE=Release
+cmake --build . --config Release
 ```
 
-### 运行实际应用
+#### Linux/macOS
 
 ```bash
-./link16_app
+# 使用提供的构建脚本
+./build.sh
+
+# 或者手动构建
+mkdir build
+cd build
+cmake .. -DCMAKE_BUILD_TYPE=Release
+cmake --build .
 ```
 
-### 运行仿真
+### 运行应用
 
 ```bash
-./link16_sim
+# Windows
+build\bin\Release\link16_app.exe
+
+# Linux/macOS
+build/bin/link16_app
+```
+
+### 生成文档
+
+```bash
+# 在build目录中
+cmake --build . --target docs
+```
+
+### 运行测试
+
+```bash
+# 在build目录中
+ctest -C Release
 ```
 
 ## 开发指南
 
+### 项目架构
+
+本项目采用分层架构，从上到下依次为：
+- **应用层**：用户接口和应用逻辑
+- **API层**：提供公共API，连接用户和内部实现
+- **协议层**：处理Link16消息格式和协议
+- **编码层**：实现各种编码、加密和交织算法
+- **物理层**：处理调制、跳频、同步和硬件接口
+- **仿真层**：提供端到端的无线链路仿真
+
 ### 添加新的编码方法
 
-1. 在`coding/error_correction/`目录下创建新的子目录
+1. 在`src/coding/error_correction/`目录下创建新的子目录
 2. 实现相应的编码器接口
-3. 在应用中引用新的编码器
+3. 在`src/api/CodingAPI.cpp`中添加对新编码器的支持
+4. 更新公共API接口`include/link16/api/CodingAPI.h`
 
 ### 添加新的调制方式
 
-1. 在`physical/modulation/`目录下创建新的子目录
+1. 在`src/physical/modulation/`目录下创建新的子目录
 2. 实现相应的调制器接口
-3. 在物理层中引用新的调制器
+3. 在`src/api/PhysicalAPI.cpp`中添加对新调制器的支持
+4. 更新公共API接口`include/link16/api/PhysicalAPI.h`
 
 ### 添加新的信道模型
 
-1. 在`simulation/channel/`目录下创建新的子目录
+1. 在`src/simulation/channel/`目录下创建新的子目录
 2. 实现相应的信道模型接口
-3. 在仿真引擎中引用新的信道模型
+3. 在`src/simulation/engine/SimulationEngine.cpp`中添加对新信道模型的支持
+4. 在`src/api/SimulationAPI.cpp`中添加对新信道模型的支持
+5. 更新公共API接口`include/link16/api/SimulationAPI.h`
+
+### 跨平台开发注意事项
+
+1. 使用`src/core/utils/platform.h`中的平台检测宏和工具函数
+2. 避免使用平台特定的API和路径分隔符
+3. 使用标准C++17特性，避免使用编译器特定的扩展
+4. 使用CMake的条件编译功能处理平台差异
 
 ## 许可证
 
