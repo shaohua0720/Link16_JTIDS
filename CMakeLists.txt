@@ -6,6 +6,13 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+# 检查编译器是否支持C++17
+include(CheckCXXCompilerFlag)
+CHECK_CXX_COMPILER_FLAG("-std=c++17" COMPILER_SUPPORTS_CXX17)
+if(NOT COMPILER_SUPPORTS_CXX17)
+    message(FATAL_ERROR "编译器 ${CMAKE_CXX_COMPILER} 不支持 C++17 标准")
+endif()
+
 # 设置输出目录
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
@@ -88,6 +95,14 @@ target_link_libraries(link16_app
     link16_physical
     link16_simulation
 )
+
+# 在Linux系统上链接额外的库
+if(UNIX AND NOT APPLE)
+    target_link_libraries(link16_app
+        pthread
+        stdc++fs  # 对于较旧的GCC版本，需要显式链接filesystem库
+    )
+endif()
 
 # 安装规则
 install(TARGETS link16_app
