@@ -22,9 +22,9 @@ bool FrequencyHopping::initialize(int pattern, uint32_t seed) {
     this->pattern = pattern;
     this->seed = seed;
     this->currentIndex = 0;
-    
+
     LOG_INFO("初始化跳频模式: " + std::to_string(pattern) + ", 种子: " + std::to_string(seed));
-    
+
     generateSequence();
     return true;
 }
@@ -35,7 +35,7 @@ double FrequencyHopping::getNextFrequency() {
         LOG_ERROR("跳频序列为空");
         return 0.0;
     }
-    
+
     double freq = sequence[currentIndex];
     currentIndex = (currentIndex + 1) % sequence.size();
     return freq;
@@ -47,12 +47,12 @@ double FrequencyHopping::getFrequencyAt(size_t index) {
         LOG_ERROR("跳频序列为空");
         return 0.0;
     }
-    
+
     if (index >= sequence.size()) {
         LOG_WARNING("索引超出跳频序列范围: " + std::to_string(index) + " >= " + std::to_string(sequence.size()));
         index = index % sequence.size();
     }
-    
+
     return sequence[index];
 }
 
@@ -96,52 +96,120 @@ std::vector<double> FrequencyHopping::getSequence() const {
 
 // 生成跳频序列
 void FrequencyHopping::generateSequence() {
-    // 这里只是一个接口，实际实现将在后续完成
-    // 在实际实现中，将根据Link16协议生成跳频序列
-    
-    // 为了编译通过，生成一个简单的跳频序列
+    // 清空序列
     sequence.clear();
-    
-    // 基础频率
+
+    // Link16频率范围
     double baseFreq = 969.0e6;  // 969MHz
-    
-    // 跳频间隔
-    double hopStep = 1.0e6;     // 1MHz
-    
-    // 序列长度
-    size_t length = 51;
-    
-    // 生成随机序列
-    std::mt19937 gen(seed);
-    std::uniform_int_distribution<> dist(0, 50);
-    
-    for (size_t i = 0; i < length; ++i) {
-        double freq = baseFreq + dist(gen) * hopStep;
-        sequence.push_back(freq);
-    }
-    
-    // 根据不同的模式调整序列
+    double maxFreq = 1206.0e6;  // 1206MHz
+    double hopStep = 3.0e6;     // 3MHz (Link16标准)
+
+    // 计算可用频率数量
+    int numFrequencies = static_cast<int>((maxFreq - baseFreq) / hopStep) + 1;
+
+    // 根据不同的跳频模式生成序列
     switch (pattern) {
-        case 1:  // 标准模式
-            // 不做调整
+        case 1: {
+            // 模式1: 随机跳频
+            std::mt19937 gen(seed);
+            std::uniform_int_distribution<int> dist(0, numFrequencies - 1);
+
+            // 生成51个频率(Link16标准)
+            for (int i = 0; i < 51; ++i) {
+                int index = dist(gen);
+                double frequency = baseFreq + index * hopStep;
+                sequence.push_back(frequency);
+            }
             break;
-            
-        case 2:  // 顺序模式
-            // 按频率排序
-            std::sort(sequence.begin(), sequence.end());
+        }
+        case 2: {
+            // 模式2: 伪随机跳频(线性同余法)
+            const uint32_t a = 1664525;
+            const uint32_t c = 1013904223;
+            const uint32_t m = 0xFFFFFFFF;
+
+            uint32_t x = seed;
+
+            // 生成51个频率
+            for (int i = 0; i < 51; ++i) {
+                x = (a * x + c) & m;
+                int index = x % numFrequencies;
+                double frequency = baseFreq + index * hopStep;
+                sequence.push_back(frequency);
+            }
             break;
-            
-        case 3:  // 反序模式
-            // 按频率逆序排序
-            std::sort(sequence.begin(), sequence.end(), std::greater<double>());
+        }
+        case 3: {
+            // 模式3: 固定跳频模式(按顺序)
+            for (int i = 0; i < numFrequencies; ++i) {
+                double frequency = baseFreq + i * hopStep;
+                sequence.push_back(frequency);
+            }
             break;
-            
-        default:
+        }
+        case 4: {
+            // 模式4: 固定跳频模式(按逆序)
+            for (int i = numFrequencies - 1; i >= 0; --i) {
+                double frequency = baseFreq + i * hopStep;
+                sequence.push_back(frequency);
+            }
+            break;
+        }
+        case 5: {
+            // 模式5: 交替跳频模式
+            for (int i = 0; i < numFrequencies / 2; ++i) {
+                double frequency1 = baseFreq + i * hopStep;
+                double frequency2 = maxFreq - i * hopStep;
+                sequence.push_back(frequency1);
+                if (std::abs(frequency1 - frequency2) > 1.0) {
+                    sequence.push_back(frequency2);
+                }
+            }
+            break;
+        }
+        case 6: {
+            // 模式6: 基于时隙的跳频(Link16标准)
+            // 在实际的Link16系统中，跳频是基于时隙的
+            // 这里简化实现，使用伪随机序列
+
+            std::mt19937 gen(seed);
+
+            // 生成基本跳频集
+            std::vector<double> baseSet;
+            for (int i = 0; i < numFrequencies; ++i) {
+                baseSet.push_back(baseFreq + i * hopStep);
+            }
+
+            // 打乱基本跳频集
+            std::shuffle(baseSet.begin(), baseSet.end(), gen);
+
+            // 选择51个频率
+            for (int i = 0; i < std::min(51, static_cast<int>(baseSet.size())); ++i) {
+                sequence.push_back(baseSet[i]);
+            }
+            break;
+        }
+        default: {
+            // 默认模式: 随机跳频
             LOG_WARNING("未知的跳频模式: " + std::to_string(pattern) + "，使用默认模式");
+
+            std::mt19937 gen(seed);
+            std::uniform_int_distribution<int> dist(0, numFrequencies - 1);
+
+            // 生成51个频率
+            for (int i = 0; i < 51; ++i) {
+                int index = dist(gen);
+                double frequency = baseFreq + index * hopStep;
+                sequence.push_back(frequency);
+            }
             break;
+        }
     }
-    
-    LOG_INFO("生成跳频序列: " + std::to_string(sequence.size()) + " 个频点");
+
+    // 重置索引
+    currentIndex = 0;
+
+    LOG_INFO("生成跳频序列，长度: " + std::to_string(sequence.size()) + " 个频点");
 }
 
 } // namespace frequency
