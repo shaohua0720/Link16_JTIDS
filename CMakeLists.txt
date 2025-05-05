@@ -77,18 +77,33 @@ file(GLOB_RECURSE APPLICATION_SOURCES
     "src/application/*.cpp"
 )
 
+file(GLOB_RECURSE API_SOURCES
+    "src/api/*.cpp"
+)
+
 # 创建库
 add_library(link16_core STATIC ${CORE_SOURCES})
 add_library(link16_protocol STATIC ${PROTOCOL_SOURCES})
 add_library(link16_coding STATIC ${CODING_SOURCES})
 add_library(link16_physical STATIC ${PHYSICAL_SOURCES})
 add_library(link16_simulation STATIC ${SIMULATION_SOURCES})
+add_library(link16_api STATIC ${API_SOURCES})
 
 # 创建可执行文件
 add_executable(link16_app ${APPLICATION_SOURCES})
 
 # 链接库
 target_link_libraries(link16_app
+    link16_core
+    link16_protocol
+    link16_coding
+    link16_physical
+    link16_simulation
+    link16_api
+)
+
+# 设置API库的依赖关系
+target_link_libraries(link16_api
     link16_core
     link16_protocol
     link16_coding
@@ -101,6 +116,11 @@ if(UNIX AND NOT APPLE)
     target_link_libraries(link16_app
         pthread
         stdc++fs  # 对于较旧的GCC版本，需要显式链接filesystem库
+    )
+
+    target_link_libraries(link16_api
+        pthread
+        stdc++fs
     )
 endif()
 
