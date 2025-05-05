@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "tools.h"
 
 class STDPMsg {
@@ -13,7 +13,7 @@ private:
 
 public:
 	STDPMsg() : m_raw_msg("0"), m_bit_msg("0") {
-		//TODO: ¼ÇµÃ¸Ä»ØËæ»úÊı
+		//TODO: è®°å¾—æ”¹å›éšæœºæ•°
 		m_headerword = new HeaderWord(bitset<15>(Tools::generateBIN(15)));
 		m_iword = new InitialWord();
 		m_eword = new ExtendWord();

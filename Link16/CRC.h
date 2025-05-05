@@ -1,4 +1,4 @@
-/**
+﻿/**
     @file CRC.h
     @author Daniel Bahr
     @version 1.2.0.0

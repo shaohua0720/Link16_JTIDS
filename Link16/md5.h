@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file md5.h
  * @The header file of md5.
  * @author Jiewei Wei

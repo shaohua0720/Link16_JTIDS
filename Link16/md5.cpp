@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file md5.cpp
  * @The implement of md5.
  * @author Jiewei Wei

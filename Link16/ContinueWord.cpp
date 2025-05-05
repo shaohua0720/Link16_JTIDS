@@ -1,17 +1,17 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include <bitset>
 #include "ContinueWord.h"
 #include "tools.h"
 
-//ÓÃ±ÈÌØ×Ö·û´®bit_strÖØĞ´×ÖÖĞµÄËùÓĞÖ÷×Ö¶Î¡£ÒªÇó×Ö·û´®Ö»ÄÜÓÉ0»ò1×é³É£¬ÇÒ³¤¶ÈÎª75
+//ç”¨æ¯”ç‰¹å­—ç¬¦ä¸²bit_stré‡å†™å­—ä¸­çš„æ‰€æœ‰ä¸»å­—æ®µã€‚è¦æ±‚å­—ç¬¦ä¸²åªèƒ½ç”±0æˆ–1ç»„æˆï¼Œä¸”é•¿åº¦ä¸º75
 void ContinueWord::rewrite(string& bit_str) {
 	if (bit_str.length() != 75) {
-		std::cout << "[rewrite]: bit_str³¤¶È·Ç·¨" << std::endl;
+		std::cout << "[rewrite]: bit_stré•¿åº¦éæ³•" << std::endl;
 		return;
 	}
 	for (int i = 0; i < 75; i++) {
 		if (bit_str[i] != '0' && bit_str[i] != '1') {
-			std::cout << "[rewrite]: bit_strÄÚÈİ·Ç·¨" << std::endl;
+			std::cout << "[rewrite]: bit_strå†…å®¹éæ³•" << std::endl;
 			return;
 		}
 	}
@@ -64,7 +64,7 @@ void ContinueWord::handler_word(string& bit_data) {
 }
 
 void ContinueWord::show() {
-	std::cout << "======" << "¼ÌĞø×ÖÒÑÌî³äÍê³É" << "======" << std::endl;
+	std::cout << "======" << "ç»§ç»­å­—å·²å¡«å……å®Œæˆ" << "======" << std::endl;
 	std::cout << "continue_word:" << std::endl;
 	std::cout << "\tformat\t\t=\t" << m_format << std::endl;
 	std::cout << "\tsignal\t\t=\t" << m_signal << std::endl;

@@ -1,18 +1,18 @@
-#pragma once
+ï»¿#pragma once
 #include <bitset>
 
 using namespace std;
 
-typedef short		int16_t;	//16Î»µÄÕûÊı
-typedef int			int32_t;	//32Î»µÄÕûÊı
-typedef long long	int64_t;	//64Î»µÄÕûÊı
+typedef short		int16_t;	//16ä½çš„æ•´æ•°
+typedef int			int32_t;	//32ä½çš„æ•´æ•°
+typedef long long	int64_t;	//64ä½çš„æ•´æ•°
 
-typedef unsigned char		uint8_t;	//8Î»ÎŞ·ûºÅÕûÊı
-typedef unsigned short		uint16_t;	//16Î»ÎŞ·ûºÅÕûÊı
-typedef unsigned int		uint32_t;	//32Î»ÎŞ·ûºÅÕûÊı
-typedef unsigned long long	uint64_t;	//64Î»ÎŞ·ûºÅÕûÊı
+typedef unsigned char		uint8_t;	//8ä½æ— ç¬¦å·æ•´æ•°
+typedef unsigned short		uint16_t;	//16ä½æ— ç¬¦å·æ•´æ•°
+typedef unsigned int		uint32_t;	//32ä½æ— ç¬¦å·æ•´æ•°
+typedef unsigned long long	uint64_t;	//64ä½æ— ç¬¦å·æ•´æ•°
 
-typedef bitset<5>	symbol;		//5bit = 1Symbol, ×¢Òâsizeof(symbol) = 4
+typedef bitset<5>	symbol;		//5bit = 1Symbol, æ³¨æ„sizeof(symbol) = 4
 
 constexpr auto FILENAME = R"(D:\C++WorkSpace\Link16\data.txt)";
 

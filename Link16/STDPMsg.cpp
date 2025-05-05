@@ -1,4 +1,4 @@
-#include "STDPMsg.h"
+﻿#include "STDPMsg.h"
 
 HeaderWord* STDPMsg::getHeaderWord() {
 	return m_headerword;

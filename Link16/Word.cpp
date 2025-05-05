@@ -1,14 +1,14 @@
-//#include <iostream>
+ï»¿//#include <iostream>
 //#include <bitset>
 //#include "tools.h"
 //
 ////15Symbol->31Symbol
-////ÓÃRS¾À´í±àÂë´¦ÀíÏûÏ¢×Ö£¬Ê¹ÓÃschifra¿â
+////ç”¨RSçº é”™ç¼–ç å¤„ç†æ¶ˆæ¯å­—ï¼Œä½¿ç”¨schifraåº“
 //template <RS_Length codeLength, RS_Length dataLength>
 //void Word<codeLength, dataLength>::RS_handler() {
 //	symbol* symbol_word = this->getS_word();
 //	for (int i = 0; i < dataLength; i++) {
-//		std::cout << "±àÂëÇ°symbol_word[" << i << "] = " << symbol_word[i].to_string() << endl;
+//		std::cout << "ç¼–ç å‰symbol_word[" << i << "] = " << symbol_word[i].to_string() << endl;
 //	}
 //
 //	string message(dataLength, 0x00);
@@ -16,7 +16,7 @@
 //		message[i] = static_cast<char>(symbol_word[i].to_ulong());
 //	}
 //
-//	//cout << "×ª»»ºóµÄsymbol(¶ş½øÖÆ±íÊ¾): " << endl;
+//	//cout << "è½¬æ¢åçš„symbol(äºŒè¿›åˆ¶è¡¨ç¤º): " << endl;
 //	//for (int i = 0; i < dataLength; i++) {
 //	//    for (int j = 7; j >= 0; j--) {
 //	//        cout << ((message[i] >> j) & 1);
@@ -29,13 +29,13 @@
 //	memcpy(symbol_RS_word, symbol_word, sizeof(symbol) * dataLength);
 //
 //	if (!RS(codeLength, dataLength, message, symbol_RS_word)) {
-//		std::cout << "RS±àÂë³É¹¦" << endl;
+//		std::cout << "RSç¼–ç æˆåŠŸ" << endl;
 //	}
 //	else {
-//		std::cout << "RS±àÂëÊ§°Ü" << endl;
+//		std::cout << "RSç¼–ç å¤±è´¥" << endl;
 //	}
 //	for (int i = 0; i < codeLength; i++) {
-//		std::cout << "±àÂëºósymbol_RS_word[" << i << "] = " << symbol_RS_word[i].to_string() << endl;
+//		std::cout << "ç¼–ç åsymbol_RS_word[" << i << "] = " << symbol_RS_word[i].to_string() << endl;
 //	}
 //}
 //

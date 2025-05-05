@@ -1,4 +1,4 @@
-//#include <iostream>
+ï»¿//#include <iostream>
 //#include <string>
 //#include <bitset>
 //#include "dataType.h"
@@ -27,7 +27,7 @@
 //    //iword.length = bitset<3>();
 //    iword.message = message;
 //
-//    cout << "======" << "³õÊ¼×ÖÒÑÌî³äÍê³É" << "======" << endl;
+//    cout << "======" << "åˆå§‹å­—å·²å¡«å……å®Œæˆ" << "======" << endl;
 //    cout << "initial_word:" << endl;
 //    cout << "\tformat\t\t=\t" << iword.format << endl;
 //    cout << "\tsignal\t\t=\t" << iword.signal << endl;
@@ -35,17 +35,17 @@
 //    cout << "\tlength\t\t=\t" << iword.length << endl;
 //    cout << "\tmessage\t\t=\t" << iword.message << endl;
 //    cout << "\tBIP\t\t=\t" << iword.BIP << endl;
-//    //ÆæÅ¼Ð£Ñé(70bit -> 75bit)
+//    //å¥‡å¶æ ¡éªŒ(70bit -> 75bit)
 //    BIP();
 //    //5bit->1Symbol
 //    symbol* symbol_word = word_to_symbol(iword);
-//    cout << "======" << "initial_word-×Ö·û×ª»»Íê±Ï" << "======" << endl;
+//    cout << "======" << "initial_word-å­—ç¬¦è½¬æ¢å®Œæ¯•" << "======" << endl;
 //    int i = 0;
 //    while(i != 15) {
 //        cout << "symbol_word[" << i << "] = " << symbol_word[i].to_string() << endl;
 //        i++;
 //    }
-//    cout<<"¿ªÊ¼Ö´ÐÐRS¾À´í±àÂë"<<endl;
+//    cout<<"å¼€å§‹æ‰§è¡ŒRSçº é”™ç¼–ç "<<endl;
 //    i = 0;
 //    symbol* symbol_RS_word = RS15_31(symbol_word);
 //    while (i != 31) {
@@ -53,7 +53,7 @@
 //        i++;
 //    }
 //    weave();
-//    send_msg("³õÊ¼×Ö");
+//    send_msg("åˆå§‹å­—");
 //    delete(symbol_word);
 //    symbol_word = nullptr;
 //    delete(symbol_RS_word);
@@ -77,21 +77,21 @@
 //    eword.format = bitset<2>(0b10);
 //    eword.message = message;
 //
-//    cout << "======" << "À©Õ¹×ÖÒÑÌî³äÍê³É" << "======" << endl;
+//    cout << "======" << "æ‰©å±•å­—å·²å¡«å……å®Œæˆ" << "======" << endl;
 //    cout << "extend_word:" << endl;
 //    cout << "\tformat\t\t=\t" << eword.format << endl;
 //    cout << "\tmessage\t\t=\t" << eword.message << endl;
-//    //ÆæÅ¼Ð£Ñé(70bit -> 75bit)
+//    //å¥‡å¶æ ¡éªŒ(70bit -> 75bit)
 //    BIP();
 //    //5bit->1Symbol
 //    symbol* symbol_word = word_to_symbol(eword);
-//    cout << "======" << "extend_word-×Ö·û×ª»»Íê±Ï" << "======" << endl;
+//    cout << "======" << "extend_word-å­—ç¬¦è½¬æ¢å®Œæ¯•" << "======" << endl;
 //    int i = 0;
 //    while (i != 15) {
 //        cout << "symbol_word[" << i << "] = " << symbol_word[i].to_string() << endl;
 //        i++;
 //    }
-//    cout << "¿ªÊ¼Ö´ÐÐRS¾À´í±àÂë" << endl;
+//    cout << "å¼€å§‹æ‰§è¡ŒRSçº é”™ç¼–ç " << endl;
 //    i = 0;
 //    symbol* symbol_RS_word = RS15_31(symbol_word);
 //    while (i != 31) {
@@ -99,7 +99,7 @@
 //        i++;
 //    }
 //    weave();
-//    send_msg("À©Õ¹×Ö");
+//    send_msg("æ‰©å±•å­—");
 //    delete(symbol_word);
 //    symbol_word = nullptr;
 //    delete(symbol_RS_word);
@@ -124,23 +124,23 @@
 //    //cword.signal = bitset<5>();
 //    cword.message = message;
 //
-//    cout << "======" << "¼ÌÐø×ÖÒÑÌî³äÍê³É" << "======" << endl;
+//    cout << "======" << "ç»§ç»­å­—å·²å¡«å……å®Œæˆ" << "======" << endl;
 //    cout << "initial_word:" << endl;
 //    cout << "\tformat\t\t=\t" << cword.format << endl;
 //    cout << "\tsignal\t\t=\t" << cword.signal << endl;
 //    cout << "\tmessage\t\t=\t" << cword.message << endl;
 //    cout << "\tBIP\t\t=\t\t" << cword.BIP << endl;
-//    //ÆæÅ¼Ð£Ñé(70bit -> 75bit)
+//    //å¥‡å¶æ ¡éªŒ(70bit -> 75bit)
 //    BIP();
 //    //5bit->1Symbol
 //    symbol* symbol_word = word_to_symbol(cword);
-//    cout << "======" << "extend_word-×Ö·û×ª»»Íê±Ï" << "======" << endl;
+//    cout << "======" << "extend_word-å­—ç¬¦è½¬æ¢å®Œæ¯•" << "======" << endl;
 //    int i = 0;
 //    while (i != 15) {
 //        cout << "symbol_word[" << i << "] = " << symbol_word[i].to_string() << endl;
 //        i++;
 //    }
-//    cout << "¿ªÊ¼Ö´ÐÐRS¾À´í±àÂë" << endl;
+//    cout << "å¼€å§‹æ‰§è¡ŒRSçº é”™ç¼–ç " << endl;
 //    i = 0;
 //    symbol* symbol_RS_word = RS15_31(symbol_word);
 //    while (i != 31) {
@@ -148,7 +148,7 @@
 //        i++;
 //    }
 //    weave();
-//    send_msg("¼ÌÐø×Ö");
+//    send_msg("ç»§ç»­å­—");
 //    delete(symbol_word);
 //    symbol_word = nullptr;
 //    delete(symbol_RS_word);
@@ -159,13 +159,13 @@
 //    BIP();
 //    //5bit->1Symbol
 //    symbol* symbol_header = header_to_symbol(header);
-//    cout << "======" << "Jheader-×Ö·û×ª»»Íê±Ï" << "======" << endl;
+//    cout << "======" << "Jheader-å­—ç¬¦è½¬æ¢å®Œæ¯•" << "======" << endl;
 //    int i = 0;
 //    while (i != 15) {
 //        cout << "Jheader[" << i << "] = " << symbol_header[i].to_string() << endl;
 //        i++;
 //    }
-//    cout << "¿ªÊ¼Ö´ÐÐRS¾À´í±àÂë" << endl;
+//    cout << "å¼€å§‹æ‰§è¡ŒRSçº é”™ç¼–ç " << endl;
 //    i = 0;
 //    symbol* symbol_RS_header = RS15_31(symbol_header);
 //    while (i != 31) {
@@ -173,7 +173,7 @@
 //        i++;
 //    }
 //    weave();
-//    send_msg("±¨Í·×Ö");
+//    send_msg("æŠ¥å¤´å­—");
 //    delete(symbol_header);
 //    symbol_header = nullptr;
 //    delete(symbol_RS_header);

@@ -1,17 +1,17 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include <bitset>
 #include "InitialWord.h"
 #include "tools.h"
 
-//ÓÃ±ÈÌØ×Ö·û´®bit_strÖØĞ´×ÖÖĞµÄËùÓĞÖ÷×Ö¶Î¡£ÒªÇó×Ö·û´®Ö»ÄÜÓÉ0»ò1×é³É£¬ÇÒ³¤¶ÈÎª75
+//ç”¨æ¯”ç‰¹å­—ç¬¦ä¸²bit_stré‡å†™å­—ä¸­çš„æ‰€æœ‰ä¸»å­—æ®µã€‚è¦æ±‚å­—ç¬¦ä¸²åªèƒ½ç”±0æˆ–1ç»„æˆï¼Œä¸”é•¿åº¦ä¸º75
 void InitialWord::rewrite(string& bit_str) {
 	if (bit_str.length() != 75) {
-		std::cout << "[rewrite]: bit_str³¤¶È·Ç·¨" << std::endl;
+		std::cout << "[rewrite]: bit_stré•¿åº¦éæ³•" << std::endl;
 		return;
 	}
 	for (int i = 0; i < 75; i++) {
 		if (bit_str[i] != '0' && bit_str[i] != '1') {
-			std::cout << "[rewrite]: bit_strÄÚÈİ·Ç·¨" << std::endl;
+			std::cout << "[rewrite]: bit_strå†…å®¹éæ³•" << std::endl;
 			return;
 		}
 	}
@@ -69,13 +69,13 @@ void InitialWord::handler_word(string& bit_data, string& type) {
 		message = message | high;
 	}
 
-	//STDP·â×°±ê×¼£¬³õÊ¼×ÖºóÖ»¸úÁ½¸ö×Ö£¬Ò»¸öÀ©Õ¹×ÖºÍÒ»¸ö¼ÌĞø×Ö
+	//STDPå°è£…æ ‡å‡†ï¼Œåˆå§‹å­—ååªè·Ÿä¸¤ä¸ªå­—ï¼Œä¸€ä¸ªæ‰©å±•å­—å’Œä¸€ä¸ªç»§ç»­å­—
 	m_length = bitset<3>(0b010);
 	m_message = message;
 }
 
 void InitialWord::show() {
-	std::cout << "======" << "³õÊ¼×ÖÒÑÌî³äÍê³É" << "======" << std::endl;
+	std::cout << "======" << "åˆå§‹å­—å·²å¡«å……å®Œæˆ" << "======" << std::endl;
 	std::cout << "initial_word:" << std::endl;
 	std::cout << "\tformat\t\t=\t" << m_format << std::endl;
 	std::cout << "\tsignal\t\t=\t" << m_signal << std::endl;

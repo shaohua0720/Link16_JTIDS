@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "tools.h"
 #include "global.h"
 

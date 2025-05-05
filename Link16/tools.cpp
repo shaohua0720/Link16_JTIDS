@@ -1,4 +1,4 @@
-//#include <iostream>
+ï»¿//#include <iostream>
 //#include <sstream>
 //#include <string>
 //#include <bitset>
@@ -7,36 +7,36 @@
 //#include "tools.h"
 //
 //void save_msg(const string& msg) {
-//	std::cout << "Ò»¸öSTDPÏûÏ¢ÒÑ·¢ËÍ³É¹¦" << std::endl;
+//	std::cout << "ä¸€ä¸ªSTDPæ¶ˆæ¯å·²å‘é€æˆåŠŸ" << std::endl;
 //	ofstream fout;
 //	fout.open(FILENAME, ios::app);
 //	if (fout.is_open() == false) {
-//		std::cout << "´ò¿ªÎÄ¼þ" << FILENAME << "Ê§°Ü" << std::endl;
+//		std::cout << "æ‰“å¼€æ–‡ä»¶" << FILENAME << "å¤±è´¥" << std::endl;
 //		return;
 //	}
 //
-//	//Ð´ÈëÒª·¢ËÍµÄÊý¾Ý
+//	//å†™å…¥è¦å‘é€çš„æ•°æ®
 //	fout << msg;
 //	fout.close();
 //	return;
 //}
 //
-////ÅÐ¶ÏÎÄ¼þÊÇ·ñ´æÔÚ£¬Èô´æÔÚÔòÉ¾³ý
+////åˆ¤æ–­æ–‡ä»¶æ˜¯å¦å­˜åœ¨ï¼Œè‹¥å­˜åœ¨åˆ™åˆ é™¤
 //bool deleteFile() {
 //	if (_access(FILENAME, 0) == 0) {
 //		if (!remove(FILENAME)) {
-//			std::cout << "ÎÄ¼þÉ¾³ý³É¹¦" << std::endl;
+//			std::cout << "æ–‡ä»¶åˆ é™¤æˆåŠŸ" << std::endl;
 //			return true;
 //		}
 //		else {
-//			std::cout << "ÎÄ¼þÉ¾³ýÊ§°Ü" << std::endl;
+//			std::cout << "æ–‡ä»¶åˆ é™¤å¤±è´¥" << std::endl;
 //			return false;
 //		}
 //	}
 //	return true;
 //}
 //
-////Ëæ»ú¶þ½øÖÆÊýÉú³ÉÆ÷
+////éšæœºäºŒè¿›åˆ¶æ•°ç”Ÿæˆå™¨
 //string generateBIN(int length) {
 //	string res;
 //	for (int i = 0; i < length; i++) {
@@ -81,12 +81,12 @@
 //	return res;
 //}
 //
-////ÊäÈë×Ö·û´®str_data³¤¶È±ØÐëÎª8µÄÕûÊý±¶
-////¹¦ÄÜ£º½«¶þ½øÖÆ×Ö·û´®¡°0000000100000010¡±°´8bitÒ»×éºÏ²¢×ª»¯{ "1", "2" }µÄ×Ö·ûÊý×é
+////è¾“å…¥å­—ç¬¦ä¸²str_dataé•¿åº¦å¿…é¡»ä¸º8çš„æ•´æ•°å€
+////åŠŸèƒ½ï¼šå°†äºŒè¿›åˆ¶å­—ç¬¦ä¸²â€œ0000000100000010â€æŒ‰8bitä¸€ç»„åˆå¹¶è½¬åŒ–{ "1", "2" }çš„å­—ç¬¦æ•°ç»„
 //uint8_t* StrToCharArray(string& str_data, int char_length) {
 //	size_t len = str_data.length();
 //	if (len % 8 != 0) {
-//		std::cout << "ÊäÈë×Ö·û´®³¤¶ÈÓÐÎó£¬Ðè8bitÕûÊý±¶";
+//		std::cout << "è¾“å…¥å­—ç¬¦ä¸²é•¿åº¦æœ‰è¯¯ï¼Œéœ€8bitæ•´æ•°å€";
 //		return nullptr;
 //	}
 //	uint8_t* data = new uint8_t[char_length]();
@@ -97,11 +97,11 @@
 //	return data;
 //}
 //
-////Ê¹ÓÃCRCÑ­»·ÈßÓàÐ£Ñé(Ê¹ÓÃCRCpp¿â)
+////ä½¿ç”¨CRCå¾ªçŽ¯å†—ä½™æ ¡éªŒ(ä½¿ç”¨CRCppåº“)
 //void BIP(HeaderWord& hword, InitialWord& iword,
 //	ExtendWord& eword, ContinueWord& cword) {
 //	string str_data = hword.toString_15B() + iword.toString_70B() + eword.toString_70B() + cword.toString_70B();
-//	//CRC(237, 225)£¬225bitÒªÓÃ29Bytes×°Ìî
+//	//CRC(237, 225)ï¼Œ225bitè¦ç”¨29Bytesè£…å¡«
 //	str_data += "0000000";
 //	uint8_t* data = StrToCharArray(str_data, 29);
 //	if (data == nullptr) {
@@ -121,7 +121,7 @@
 //	ExtendWord& eword, ContinueWord& cword) {
 //	string message = hword.toString() + iword.toString()
 //		+ eword.toString() + cword.toString();
-//	//×Ü³¤¶È = 75 + 75 + 75 + 35 = 260bit¡£ÓÉÓÚAESËã·¨µÄÊäÈëÏÞÖÆ£¬Ö»¼ÓÃÜÇ°256bitÊý¾Ý¡£
+//	//æ€»é•¿åº¦ = 75 + 75 + 75 + 35 = 260bitã€‚ç”±äºŽAESç®—æ³•çš„è¾“å…¥é™åˆ¶ï¼ŒåªåŠ å¯†å‰256bitæ•°æ®ã€‚
 //
 //	string str_data = message.substr(0, 256);
 //	uint8_t* plain = StrToCharArray(str_data, 32);
@@ -146,11 +146,11 @@
 //	delete[] out;
 //	out = nullptr;
 //
-//	//½«AES¼ÓÃÜºóµÄÊý¾ÝÖØÐÂÐ´Èë±¨Í·
+//	//å°†AESåŠ å¯†åŽçš„æ•°æ®é‡æ–°å†™å…¥æŠ¥å¤´
 //	string bit_header = bit_str.substr(0, 35);
 //	hword.rewrite(bit_header);
 //
-//	//½«AES¼ÓÃÜºóµÄÊý¾ÝÖØÐÂÐ´Èë×Ö
+//	//å°†AESåŠ å¯†åŽçš„æ•°æ®é‡æ–°å†™å…¥å­—
 //	string bit_iword = bit_str.substr(35, 75);
 //	iword.rewrite(bit_iword);
 //	string bit_eword = bit_str.substr(110, 75);
@@ -159,7 +159,7 @@
 //	cword.rewrite(bit_cword);
 //}
 //
-////½«³¤¶ÈÎª109SymbolµÄÏûÏ¢°´ÕÕÏÈÐÐºóÁÐµÄË³ÐòÐ´Èë12 x 9µÄ¾ØÕó£¨×îºóÒ»¸öSymbol²»²ÎÓë½»Ö¯£©,È»ºó°´ÕÕÏÈÁÐºóÐÐµÄË³Ðò´òÓ¡Êä³ö
+////å°†é•¿åº¦ä¸º109Symbolçš„æ¶ˆæ¯æŒ‰ç…§å…ˆè¡ŒåŽåˆ—çš„é¡ºåºå†™å…¥12 x 9çš„çŸ©é˜µï¼ˆæœ€åŽä¸€ä¸ªSymbolä¸å‚ä¸Žäº¤ç»‡ï¼‰,ç„¶åŽæŒ‰ç…§å…ˆåˆ—åŽè¡Œçš„é¡ºåºæ‰“å°è¾“å‡º
 //void weave(HeaderWord& hword, InitialWord& iword,
 //	ExtendWord& eword, ContinueWord& cword) {
 //	symbol* bit_data = new symbol[108];
@@ -191,7 +191,7 @@
 //		}
 //	}
 //
-//	//·¢ËÍ
+//	//å‘é€
 //	string res;
 //	for (int i = 0; i < 9; i++) {
 //		for (int j = 0; j < 12; j++) {
@@ -199,11 +199,11 @@
 //		}
 //	}
 //	res += RS_cword[30].to_string();
-//	std::cout << "======½»Ö¯ºóµÄSTDPÏûÏ¢ÄÚÈÝÈçÏÂ£º======\n";
+//	std::cout << "======äº¤ç»‡åŽçš„STDPæ¶ˆæ¯å†…å®¹å¦‚ä¸‹ï¼š======\n";
 //	std::cout << res << std::endl;
 //	save_msg(res);
 //
-//	//ÊÍ·Å×ÊÔ´
+//	//é‡Šæ”¾èµ„æº
 //	delete[] bit_data;
 //	bit_data = nullptr;
 //
@@ -259,7 +259,7 @@
 //	message.resize(code_length, 0x00);
 //
 //	/* Transform message into Reed-Solomon encoded codeword */
-//	//½«Symbol´¦ÀíºóµÄmessageÖÐµÄÊý¾ÝÖð¸ö·ÅÈëblock¿éÖÐ½øÐÐ±àÂë£¬È»ºó½«±àÂëºóµÄÊý¾Ý´æÈëblock.dataÖÐ(Ç°Ãæ·ÅÔ­Ê¼Êý¾Ý£¬ºóÃæ·ÅFECÂë)
+//	//å°†Symbolå¤„ç†åŽçš„messageä¸­çš„æ•°æ®é€ä¸ªæ”¾å…¥blockå—ä¸­è¿›è¡Œç¼–ç ï¼Œç„¶åŽå°†ç¼–ç åŽçš„æ•°æ®å­˜å…¥block.dataä¸­(å‰é¢æ”¾åŽŸå§‹æ•°æ®ï¼ŒåŽé¢æ”¾FECç )
 //	if (!encoder.encode(message, block))
 //	{
 //		std::cout << "Error - Critical encoding failure! "
@@ -267,7 +267,7 @@
 //		return 1;
 //	}
 //
-//	//¸ñÊ½»¯str_fec
+//	//æ ¼å¼åŒ–str_fec
 //	string str_fec(RS_Length::fec_31_15, 0x00);
 //	block.fec_to_string(str_fec);
 //
@@ -280,7 +280,7 @@
 //	}
 //
 //	else if (codeLength == RS_Length::code_16_7 && dataLength == RS_Length::data_16_7) {
-//		//Assemble(Header)£¬¶ªµôfecÖÐÇ°7SymbolµÄ¾À´íÎ»
+//		//Assemble(Header)ï¼Œä¸¢æŽ‰fecä¸­å‰7Symbolçš„çº é”™ä½
 //		for (int i = RS_Length::data_16_7; i < RS_Length::code_16_7; i++) {
 //			bitset<8> temp = bitset<8>(str_fec[i]);
 //			symbol_msg[i] = symbol(temp.to_string().substr(3, 5));
@@ -294,32 +294,32 @@
 //
 //void handlerSTDP(HeaderWord& hword, InitialWord& iword,
 //	ExtendWord& eword, ContinueWord& cword) {
-//	//Ö´ÐÐÆæÅ¼Ð£Ñé£¬70bit -> 75bit
-//	std::cout << "======" << "¿ªÊ¼Ö´ÐÐÆæÅ¼Ð£Ñé" << "======" << std::endl;
+//	//æ‰§è¡Œå¥‡å¶æ ¡éªŒï¼Œ70bit -> 75bit
+//	std::cout << "======" << "å¼€å§‹æ‰§è¡Œå¥‡å¶æ ¡éªŒ" << "======" << std::endl;
 //	BIP(hword, iword, eword, cword);
 //
-//	//ÏûÏ¢¼ÓÃÜ
-//	std::cout << "======" << "¿ªÊ¼AES¼ÓÃÜ" << "======" << std::endl;
+//	//æ¶ˆæ¯åŠ å¯†
+//	std::cout << "======" << "å¼€å§‹AESåŠ å¯†" << "======" << std::endl;
 //	AES_Encrypt(hword, iword, eword, cword);
 //
-//	//Symbol×ª»»£¬È»ºó½øÐÐRS±àÂë
+//	//Symbolè½¬æ¢ï¼Œç„¶åŽè¿›è¡ŒRSç¼–ç 
 //	hword.to_symbol();
-//	std::cout << "======" << "HeaderWordÖ´ÐÐRS¾À´í±àÂë 7Symbol --> 16Symbol" << "======" << std::endl;
+//	std::cout << "======" << "HeaderWordæ‰§è¡ŒRSçº é”™ç¼–ç  7Symbol --> 16Symbol" << "======" << std::endl;
 //	hword.RS_handler();
 //
 //	iword.to_symbol();
-//	std::cout << "======" << "InitialWordÖ´ÐÐRS¾À´í±àÂë 15Symbol --> 31Symbol" << "======" << std::endl;
+//	std::cout << "======" << "InitialWordæ‰§è¡ŒRSçº é”™ç¼–ç  15Symbol --> 31Symbol" << "======" << std::endl;
 //	iword.RS_handler();
 //
 //	eword.to_symbol();
-//	std::cout << "======" << "ExtendWordÖ´ÐÐRS¾À´í±àÂë 15Symbol --> 31Symbol" << "======" << std::endl;
+//	std::cout << "======" << "ExtendWordæ‰§è¡ŒRSçº é”™ç¼–ç  15Symbol --> 31Symbol" << "======" << std::endl;
 //	eword.RS_handler();
 //
 //	cword.to_symbol();
-//	std::cout << "======" << "ContinueWordÖ´ÐÐRS¾À´í±àÂë 15Symbol --> 31Symbol" << "======" << std::endl;
+//	std::cout << "======" << "ContinueWordæ‰§è¡ŒRSçº é”™ç¼–ç  15Symbol --> 31Symbol" << "======" << std::endl;
 //	cword.RS_handler();
 //
-//	//½»Ö¯²¢·¢ËÍ
-//	std::cout << "======" << "¿ªÊ¼Ö´ÐÐ×Ö·û½»Ö¯" << "======" << std::endl;
+//	//äº¤ç»‡å¹¶å‘é€
+//	std::cout << "======" << "å¼€å§‹æ‰§è¡Œå­—ç¬¦äº¤ç»‡" << "======" << std::endl;
 //	weave(hword, iword, eword, cword);
 //}

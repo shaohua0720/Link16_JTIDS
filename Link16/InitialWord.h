@@ -1,15 +1,15 @@
-#pragma once
+ï»¿#pragma once
 #include "Word.hpp"
 
-//75bit³õÊ¼×Ö
+//75bitåˆå§‹å­—
 class InitialWord : public Word<RS_Length::code_31_15, RS_Length::data_31_15> {
 private:
-	bitset<2>	m_format;		//×Ö¸ñÊ½£º³õÊ¼×ÖÎª00
-	bitset<5>	m_signal;		//±êÊ¶£¬ÏûÏ¢´óÀà£¨Jn.mÖĞµÄn±êÊ¶£©
-	bitset<3>	m_sub_signal;	//×Ó±êÊ¶£¬ÏûÏ¢×ÓÀà£¨Jn.mÖĞµÄm±êÊ¶£©
-	bitset<3>	m_length;		//ÏûÏ¢³¤¶È£¬±íÊ¾³õÊ¼×ÖºóÃæµÄÀ©Õ¹×Ö»ò¼ÌĞø×ÖµÄ×ÜÊı£¬×î¶à7¸ö
-	bitset<57>	m_message;	    //ĞÅÏ¢×Ö£¬Ç°Áù¸öbit´æÏûÏ¢³¤¶È£¨È«²¿Îª1±íÊ¾´Ë×ÖÏûÏ¢ÒÑÂú£©
-	bitset<5>	m_BIP;		    //ÆæÅ¼Ğ£Ñé£¬µÚÒ»Î»¿ÕÏĞ£¬ºóËÄÎ»Ö´ĞĞĞ£Ñé
+	bitset<2>	m_format;		//å­—æ ¼å¼ï¼šåˆå§‹å­—ä¸º00
+	bitset<5>	m_signal;		//æ ‡è¯†ï¼Œæ¶ˆæ¯å¤§ç±»ï¼ˆJn.mä¸­çš„næ ‡è¯†ï¼‰
+	bitset<3>	m_sub_signal;	//å­æ ‡è¯†ï¼Œæ¶ˆæ¯å­ç±»ï¼ˆJn.mä¸­çš„mæ ‡è¯†ï¼‰
+	bitset<3>	m_length;		//æ¶ˆæ¯é•¿åº¦ï¼Œè¡¨ç¤ºåˆå§‹å­—åé¢çš„æ‰©å±•å­—æˆ–ç»§ç»­å­—çš„æ€»æ•°ï¼Œæœ€å¤š7ä¸ª
+	bitset<57>	m_message;	    //ä¿¡æ¯å­—ï¼Œå‰å…­ä¸ªbitå­˜æ¶ˆæ¯é•¿åº¦ï¼ˆå…¨éƒ¨ä¸º1è¡¨ç¤ºæ­¤å­—æ¶ˆæ¯å·²æ»¡ï¼‰
+	bitset<5>	m_BIP;		    //å¥‡å¶æ ¡éªŒï¼Œç¬¬ä¸€ä½ç©ºé—²ï¼Œåå››ä½æ‰§è¡Œæ ¡éªŒ
 
 public:
 	InitialWord() : Word(), m_format(0b00) {}

@@ -1,4 +1,4 @@
-//#include <iostream>
+ï»¿//#include <iostream>
 //#include <bitset>
 //#include "decodeTools.h"
 //#include <fstream>
@@ -7,12 +7,12 @@
 //	ifstream fin;
 //	fin.open(FILENAME, ios::in);
 //	if (fin.is_open() == false) {
-//		std::cout << "´ò¿ªÎÄ¼ş" << FILENAME << "Ê§°Ü" << std::endl;
+//		std::cout << "æ‰“å¼€æ–‡ä»¶" << FILENAME << "å¤±è´¥" << std::endl;
 //		return "";
 //	}
-//	//Ã¿´Î¶ÁÒ»ĞĞ
+//	//æ¯æ¬¡è¯»ä¸€è¡Œ
 //	string buffer;
-//	std::cout << "´ÓtxtÎÄµµÖĞ¶Áµ½µÄÊı¾İÈçÏÂ£º" << std::endl;
+//	std::cout << "ä»txtæ–‡æ¡£ä¸­è¯»åˆ°çš„æ•°æ®å¦‚ä¸‹ï¼š" << std::endl;
 //	while (fin >> buffer) {
 //		std::cout << buffer << std::endl;
 //	}
@@ -41,14 +41,14 @@
 //	return group;
 //}
 //
-////½«Ò»¸östdp×Ö·û´®ÏûÏ¢ÓÃsymbolÊı¾İ¸ñÊ½·â×°
+////å°†ä¸€ä¸ªstdpå­—ç¬¦ä¸²æ¶ˆæ¯ç”¨symbolæ•°æ®æ ¼å¼å°è£…
 //void StrToSymbol(symbol* stdp, size_t length, string& message) {
 //	for (int i = 0; i < length; i++) {
 //		stdp[i] = bitset<5>(message.substr(i * 5, 5));
 //	}
 //}
 //
-////raw_msg³¤¶È±ØĞëÎª545
+////raw_msgé•¿åº¦å¿…é¡»ä¸º545
 //string decode_weave(string& raw_msg) {
 //	symbol* bit_data = new symbol[108];
 //	StrToSymbol(bit_data, 108, raw_msg);
@@ -69,7 +69,7 @@
 //	}
 //	res += raw_msg.substr(540, 5);
 //
-//	//ÊÍ·Å×ÊÔ´
+//	//é‡Šæ”¾èµ„æº
 //	delete[] bit_data;
 //	bit_data = nullptr;
 //
@@ -82,7 +82,7 @@
 //	return res;
 //}
 //
-////½âÂëHeaderWord
+////è§£ç HeaderWord
 //string decode_RS_code_16_7(symbol* head) {
 //	string str_hword(code_31_15, 0x00);
 //	for (int i = 0; i < data_16_7; i++) {
@@ -93,16 +93,16 @@
 //	}
 //	string hword_data(data_31_15, 0x00);
 //	if (!decode_RS(str_hword, hword_data)) {
-//		std::cout << "RS½âÂë³É¹¦" << std::endl;
+//		std::cout << "RSè§£ç æˆåŠŸ" << std::endl;
 //	}
 //	else {
-//		std::cout << "RS½âÂëÊ§°Ü" << std::endl;
+//		std::cout << "RSè§£ç å¤±è´¥" << std::endl;
 //	}
 //	hword_data.erase(data_16_7, 8);
 //	return hword_data;
 //}
 //
-////½âÂëWord
+////è§£ç Word
 //string decode_RS_code_31_15(symbol* head) {
 //	string str_word(code_31_15, 0x00);
 //	for (int i = 0; i < code_31_15; i++) {
@@ -110,50 +110,50 @@
 //	}
 //	string word_data(data_31_15, 0x00);
 //	if (!decode_RS(str_word, word_data)) {
-//		std::cout << "RS½âÂë³É¹¦" << std::endl;
+//		std::cout << "RSè§£ç æˆåŠŸ" << std::endl;
 //	}
 //	else {
-//		std::cout << "RS½âÂëÊ§°Ü" << std::endl;
+//		std::cout << "RSè§£ç å¤±è´¥" << std::endl;
 //	}
 //	return word_data;
 //}
 //
-////message³¤¶È±ØĞëÎª545
+////messageé•¿åº¦å¿…é¡»ä¸º545
 //string decode_RS_AES_BIP_handler(string& message) {
 //	if (message.length() != 545) {
-//		std::cout << "´íÎóµÄSTDPÏûÏ¢¸ñÊ½" << std::endl;
+//		std::cout << "é”™è¯¯çš„STDPæ¶ˆæ¯æ ¼å¼" << std::endl;
 //		return "";
 //	}
 //	symbol* stdp = new symbol[109];
 //	StrToSymbol(stdp, 109, message);
 //	string char_data;
 //
-//	//½âÂëHeaderWord
+//	//è§£ç HeaderWord
 //	symbol* hword = stdp;
 //	char_data += decode_RS_code_16_7(hword);
 //
-//	//½âÂëInitialWord
+//	//è§£ç InitialWord
 //	symbol* iword = hword + code_16_7;
 //	char_data += decode_RS_code_31_15(iword);
 //
-//	//½âÂëExtendWord
+//	//è§£ç ExtendWord
 //	symbol* eword = iword + code_31_15;
 //	char_data += decode_RS_code_31_15(eword);
 //
-//	//½âÂëContinueWord
+//	//è§£ç ContinueWord
 //	symbol* cword = eword + code_31_15;
 //	char_data += decode_RS_code_31_15(cword);
 //
-//	//ÊÍ·Å×ÊÔ´
+//	//é‡Šæ”¾èµ„æº
 //	delete[] stdp;
 //	stdp = nullptr;
 //
-//	//AES½âÃÜ
+//	//AESè§£å¯†
 //	string bit_data = AES_Decrypt(char_data);
 //
-//	//BIPÆæÅ¼Ğ£Ñé
+//	//BIPå¥‡å¶æ ¡éªŒ
 //	if (!decode_BIP(bit_data)) {
-//		std::cout << "BIPÆæÅ¼Ğ£ÑéÓĞÎó" << std::endl;
+//		std::cout << "BIPå¥‡å¶æ ¡éªŒæœ‰è¯¯" << std::endl;
 //		return "";
 //	}
 //
@@ -193,7 +193,7 @@
 //	return bit_str;
 //}
 //
-////message±ØĞëÑ¹ËõÎªchar
+////messageå¿…é¡»å‹ç¼©ä¸ºchar
 //int decode_RS(string& message, string& str_data) {
 //	/* Finite Field Parameters */
 //	const std::size_t field_descriptor = 5;

@@ -1,17 +1,17 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include <bitset>
 #include "HeaderWord.h"
 #include "tools.h"
 
-//ÓÃ±ÈÌØ×Ö·û´®bit_strÖØĞ´±¨Í·ÖĞµÄËùÓĞÖ÷×Ö¶Î¡£ÒªÇó×Ö·û´®Ö»ÄÜÓÉ0»ò1×é³É£¬ÇÒ³¤¶ÈÎª35
+//ç”¨æ¯”ç‰¹å­—ç¬¦ä¸²bit_stré‡å†™æŠ¥å¤´ä¸­çš„æ‰€æœ‰ä¸»å­—æ®µã€‚è¦æ±‚å­—ç¬¦ä¸²åªèƒ½ç”±0æˆ–1ç»„æˆï¼Œä¸”é•¿åº¦ä¸º35
 void HeaderWord::rewrite(string& bit_str) {
 	if (bit_str.length() != 35) {
-		std::cout << "[rewrite]: bit_str³¤¶È·Ç·¨" << std::endl;
+		std::cout << "[rewrite]: bit_stré•¿åº¦éæ³•" << std::endl;
 		return;
 	}
 	for (int i = 0; i < 35; i++) {
 		if (bit_str[i] != '0' && bit_str[i] != '1') {
-			std::cout << "[rewrite]: bit_strÄÚÈİ·Ç·¨" << std::endl;
+			std::cout << "[rewrite]: bit_strå†…å®¹éæ³•" << std::endl;
 			return;
 		}
 	}
@@ -33,7 +33,7 @@ void HeaderWord::to_symbol() {
 }
 
 void HeaderWord::show() {
-	std::cout << "======" << "ÏûÏ¢Í·ÒÑÉú³É" << "======" << std::endl;
+	std::cout << "======" << "æ¶ˆæ¯å¤´å·²ç”Ÿæˆ" << "======" << std::endl;
 	std::cout << "JHeader:" << std::endl;
 	std::cout << "\ttype\t\t=\t" << m_type << std::endl;
 	std::cout << "\tPR\t\t=\t" << m_PR << std::endl;

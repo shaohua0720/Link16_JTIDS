@@ -1,12 +1,12 @@
-#pragma once
+ï»¿#pragma once
 #include "dataType.h"
 #include <iostream>
 
 template <RS_Length codeLength, RS_Length dataLength>
 class Word {
 public:
-	symbol* m_S_word;      //symbol×ª»»ºóµÄWord
-	symbol* m_RS_word;     //RS±àÂëºóµÄWord
+	symbol* m_S_word;      //symbolè½¬æ¢åŽçš„Word
+	symbol* m_RS_word;     //RSç¼–ç åŽçš„Word
 
 	Word() {
 		m_S_word = new symbol[dataLength]();
@@ -21,12 +21,12 @@ public:
 		m_RS_word = nullptr;
 	}
 
-	//ÓÃRS¾À´í±àÂë´¦ÀíÏûÏ¢×Ö£¬Ê¹ÓÃschifra¿â
+	//ç”¨RSçº é”™ç¼–ç å¤„ç†æ¶ˆæ¯å­—ï¼Œä½¿ç”¨schifraåº“
 	void RS_handler() {
 		symbol* symbol_word = this->getS_word();
 
 		////print
-		//std::cout << "±àÂëÇ°symbol_word = " << std::endl;
+		//std::cout << "ç¼–ç å‰symbol_word = " << std::endl;
 		//for (int i = 0; i < dataLength; i++) {
 		//	std::cout << symbol_word[i].to_string();
 		//}
@@ -38,7 +38,7 @@ public:
 		}
 
 		////print
-		//std::cout << "RS±àÂëÇ°×ª»»ºóµÄsymbol(¶þ½øÖÆ±íÊ¾): " << std::endl;
+		//std::cout << "RSç¼–ç å‰è½¬æ¢åŽçš„symbol(äºŒè¿›åˆ¶è¡¨ç¤º): " << std::endl;
 		//for (int i = 0; i < dataLength; i++) {
 		//	for (int j = 7; j >= 0; j--) {
 		//		std::cout << ((message[i] >> j) & 1);
@@ -51,14 +51,14 @@ public:
 		memcpy(symbol_RS_word, symbol_word, sizeof(symbol) * dataLength);
 
 		if (!RS(codeLength, dataLength, message, symbol_RS_word)) {
-			std::cout << "RS±àÂë³É¹¦" << std::endl;
+			std::cout << "RSç¼–ç æˆåŠŸ" << std::endl;
 		}
 		else {
-			std::cout << "RS±àÂëÊ§°Ü" << std::endl;
+			std::cout << "RSç¼–ç å¤±è´¥" << std::endl;
 		}
 
 		////print
-		//std::cout << "±àÂëºósymbol_RS_word = " << std::endl;
+		//std::cout << "ç¼–ç åŽsymbol_RS_word = " << std::endl;
 		//for (int i = 0; i < codeLength; i++) {
 		//	std::cout << symbol_RS_word[i].to_string();
 		//}

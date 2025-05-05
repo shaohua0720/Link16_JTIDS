@@ -1,12 +1,12 @@
-#pragma once
+ï»¿#pragma once
 #include "Word.hpp"
 
-//75bitÀ©Õ¹×Ö£¬±ØĞë°´Ë³Ğò·¢ËÍ
+//75bitæ‰©å±•å­—ï¼Œå¿…é¡»æŒ‰é¡ºåºå‘é€
 class ExtendWord : public Word<RS_Length::code_31_15, RS_Length::data_31_15> {
 private:
-	bitset<2>	m_format;	    //×Ö¸ñÊ½£ºÀ©Õ¹×ÖÎª10
-	bitset<68>	m_message;	    //ĞÅÏ¢×Ö£¬Ç°Áù¸öbit´æÏûÏ¢³¤¶È£¨È«²¿Îª1±íÊ¾´Ë×ÖÏûÏ¢ÒÑÂú£©
-	bitset<5>	m_BIP;		    //ÆæÅ¼Ğ£Ñé£¬µÚÒ»Î»¿ÕÏĞ£¬ºóËÄÎ»Ö´ĞĞĞ£Ñé
+	bitset<2>	m_format;	    //å­—æ ¼å¼ï¼šæ‰©å±•å­—ä¸º10
+	bitset<68>	m_message;	    //ä¿¡æ¯å­—ï¼Œå‰å…­ä¸ªbitå­˜æ¶ˆæ¯é•¿åº¦ï¼ˆå…¨éƒ¨ä¸º1è¡¨ç¤ºæ­¤å­—æ¶ˆæ¯å·²æ»¡ï¼‰
+	bitset<5>	m_BIP;		    //å¥‡å¶æ ¡éªŒï¼Œç¬¬ä¸€ä½ç©ºé—²ï¼Œåå››ä½æ‰§è¡Œæ ¡éªŒ
 
 public:
 	ExtendWord() : Word(), m_format(0b10) {}
