@@ -11,6 +11,19 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
+# 设置编译选项
+if(MSVC)
+    # Visual Studio编译选项
+    add_compile_options(/W4 /MP /EHsc)
+    # 使用UTF-8编码
+    add_compile_options(/utf-8)
+else()
+    # GCC/Clang编译选项
+    add_compile_options(-Wall -Wextra -Wpedantic)
+    # 使用UTF-8编码
+    add_compile_options(-finput-charset=UTF-8)
+endif()
+
 # 添加包含目录
 include_directories(
     ${CMAKE_SOURCE_DIR}/include
@@ -18,28 +31,42 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/lib
 )
 
+# 检测操作系统
+if(WIN32)
+    message(STATUS "Building for Windows")
+    add_definitions(-DPLATFORM_WINDOWS)
+elseif(UNIX AND NOT APPLE)
+    message(STATUS "Building for Linux")
+    add_definitions(-DPLATFORM_LINUX)
+elseif(APPLE)
+    message(STATUS "Building for macOS")
+    add_definitions(-DPLATFORM_MACOS)
+else()
+    message(WARNING "Unknown platform")
+endif()
+
 # 添加源文件
-file(GLOB_RECURSE CORE_SOURCES 
+file(GLOB_RECURSE CORE_SOURCES
     "src/core/*.cpp"
 )
 
-file(GLOB_RECURSE PROTOCOL_SOURCES 
+file(GLOB_RECURSE PROTOCOL_SOURCES
     "src/protocol/*.cpp"
 )
 
-file(GLOB_RECURSE CODING_SOURCES 
+file(GLOB_RECURSE CODING_SOURCES
     "src/coding/*.cpp"
 )
 
-file(GLOB_RECURSE PHYSICAL_SOURCES 
+file(GLOB_RECURSE PHYSICAL_SOURCES
     "src/physical/*.cpp"
 )
 
-file(GLOB_RECURSE SIMULATION_SOURCES 
+file(GLOB_RECURSE SIMULATION_SOURCES
     "src/simulation/*.cpp"
 )
 
-file(GLOB_RECURSE APPLICATION_SOURCES 
+file(GLOB_RECURSE APPLICATION_SOURCES
     "src/application/*.cpp"
 )
 
@@ -70,3 +97,43 @@ install(TARGETS link16_app
 # 添加测试
 enable_testing()
 add_subdirectory(tests)
+
+# 添加文档生成
+find_package(Doxygen)
+if(DOXYGEN_FOUND)
+    set(DOXYGEN_IN ${CMAKE_SOURCE_DIR}/docs/Doxyfile.in)
+    set(DOXYGEN_OUT ${CMAKE_BINARY_DIR}/Doxyfile)
+
+    configure_file(${DOXYGEN_IN} ${DOXYGEN_OUT} @ONLY)
+
+    add_custom_target(docs
+        COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_OUT}
+        WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+        COMMENT "Generating API documentation with Doxygen"
+        VERBATIM
+    )
+endif()
+
+# 添加打包配置
+include(InstallRequiredSystemLibraries)
+set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}/LICENSE")
+set(CPACK_PACKAGE_VERSION_MAJOR "${PROJECT_VERSION_MAJOR}")
+set(CPACK_PACKAGE_VERSION_MINOR "${PROJECT_VERSION_MINOR}")
+set(CPACK_PACKAGE_VERSION_PATCH "${PROJECT_VERSION_PATCH}")
+set(CPACK_PACKAGE_CONTACT "your.email@example.com")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Link16 Protocol Implementation")
+
+if(WIN32)
+    set(CPACK_GENERATOR "NSIS")
+    set(CPACK_NSIS_ENABLE_UNINSTALL_BEFORE_INSTALL ON)
+    set(CPACK_NSIS_MODIFY_PATH ON)
+elseif(APPLE)
+    set(CPACK_GENERATOR "DragNDrop")
+else()
+    set(CPACK_GENERATOR "DEB")
+    set(CPACK_DEBIAN_PACKAGE_MAINTAINER "Your Name")
+    set(CPACK_DEBIAN_PACKAGE_SECTION "devel")
+    set(CPACK_DEBIAN_PACKAGE_DEPENDS "libc6 (>= 2.3.1-6)")
+endif()
+
+include(CPack)
