@@ -1,8 +1,24 @@
 #pragma once
 #include <string>
-#include "protocol/message/STDPMsg.h"
+#include <memory>
 
 namespace link16 {
+
+// 前向声明
+namespace coding {
+    class BIPCoder;
+    class ReedSolomon;
+    class AESCrypto;
+    class Interleaver;
+}
+
+namespace physical {
+    class Modulator;
+    class FrequencyHopping;
+    class Transmitter;
+    class Receiver;
+}
+
 namespace application {
 
 class Link16App {
@@ -29,6 +45,9 @@ public:
     void shutdown();
 
 private:
+    // 检查消息类型是否有效
+    bool isValidMessageType(int n, int m);
+    
     // 应用状态
     bool initialized;
     
@@ -37,6 +56,18 @@ private:
     
     // 数据文件路径
     std::string dataPath;
+    
+    // 编码组件
+    std::unique_ptr<coding::BIPCoder> bipCoder;
+    std::unique_ptr<coding::ReedSolomon> rsCoder;
+    std::unique_ptr<coding::AESCrypto> aesCrypto;
+    std::unique_ptr<coding::Interleaver> interleaver;
+    
+    // 物理层组件
+    std::unique_ptr<physical::Modulator> modulator;
+    std::unique_ptr<physical::FrequencyHopping> frequencyHopping;
+    std::unique_ptr<physical::Transmitter> transmitter;
+    std::unique_ptr<physical::Receiver> receiver;
 };
 
 } // namespace application
