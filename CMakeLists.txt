@@ -73,8 +73,13 @@ file(GLOB_RECURSE SIMULATION_SOURCES
     "src/simulation/*.cpp"
 )
 
-file(GLOB_RECURSE APPLICATION_SOURCES
-    "src/application/*.cpp"
+# 应用层源文件
+set(APPLICATION_SOURCES
+    src/application/main.cpp
+    src/application/Link16System.cpp
+    src/application/real/Link16App.cpp
+    src/application/simulation/SimulationApp.cpp
+    # 移除 src/architecture/Link16System.cpp
 )
 
 file(GLOB_RECURSE API_SOURCES

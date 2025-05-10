@@ -23,6 +23,17 @@ link16/                                # 项目根目录
 │   │   ├── PhysicalAPI.cpp            # 物理层API实现
 │   │   └── SimulationAPI.cpp          # 仿真API实现
 │   │
+│   ├── application/                   # 应用层
+│   │   ├── main.cpp                   # 主程序入口
+│   │   ├── Link16System.h             # 系统集成类
+│   │   ├── Link16System.cpp           # 系统集成类实现
+│   │   ├── real/                      # 实际通信模式
+│   │   │   ├── Link16App.h            # 实际通信应用类
+│   │   │   └── Link16App.cpp          # 实际通信应用实现
+│   │   └── simulation/                # 仿真模式
+│   │       ├── SimulationApp.h        # 仿真应用类
+│   │       └── SimulationApp.cpp      # 仿真应用实现
+│   │
 │   ├── core/                          # 核心功能
 │   │   ├── types/                     # 基本数据类型
 │   │   │   ├── dataType.h             # 数据类型定义
@@ -175,38 +186,34 @@ link16/                                # 项目根目录
 │   │           ├── FrameSynchronizer.h
 │   │           └── FrameSynchronizer.cpp
 │   │
-│   ├── simulation/                    # 仿真模块
-│   │   ├── EndToEndSimulation.h       # 端到端仿真接口
-│   │   ├── EndToEndSimulation.cpp     # 端到端仿真实现
-│   │   │
-│   │   ├── channel/                   # 信道模型
-│   │   │   ├── base/                  # 基础信道模型
-│   │   │   │   ├── ChannelModel.h     # 信道模型基类
-│   │   │   │   └── ChannelModel.cpp
-│   │   │   │
-│   │   │   ├── awgn/                  # 加性高斯白噪声信道
-│   │   │   │   ├── AWGNChannel.h
-│   │   │   │   └── AWGNChannel.cpp
-│   │   │   │
-│   │   │   └── fading/                # 衰落信道
-│   │   │       ├── RayleighChannel.h  # 瑞利衰落
-│   │   │       └── RayleighChannel.cpp
-│   │   │
-│   │   ├── metrics/                   # 性能指标
-│   │   │   ├── BER.h                  # 误码率
-│   │   │   ├── BER.cpp
-│   │   │   ├── Throughput.h           # 吞吐量
-│   │   │   └── Throughput.cpp
-│   │   │
-│   │   └── engine/                    # 仿真引擎
-│   │       ├── SimulationEngine.h     # 仿真引擎核心
-│   │       ├── SimulationEngine.cpp
-│   │       ├── SimulationConfig.h     # 仿真配置
-│   │       └── SimulationConfig.cpp
-│   │
-│   └── application/                   # 应用层
-│       ├── Link16.cpp                 # Link16应用实现
-│       └── main.cpp                   # 主程序入口
+│   └── simulation/                    # 仿真模块
+│       ├── EndToEndSimulation.h       # 端到端仿真接口
+│       ├── EndToEndSimulation.cpp     # 端到端仿真实现
+│       │
+│       ├── channel/                   # 信道模型
+│       │   ├── base/                  # 基础信道模型
+│       │   │   ├── ChannelModel.h     # 信道模型基类
+│       │   │   └── ChannelModel.cpp
+│       │   │
+│       │   ├── awgn/                  # 加性高斯白噪声信道
+│       │   │   ├── AWGNChannel.h
+│       │   │   └── AWGNChannel.cpp
+│       │   │
+│       │   └── fading/                # 衰落信道
+│       │       ├── RayleighChannel.h  # 瑞利衰落
+│       │       └── RayleighChannel.cpp
+│       │
+│       ├── metrics/                   # 性能指标
+│       │   ├── BER.h                  # 误码率
+│       │   ├── BER.cpp
+│       │   ├── Throughput.h           # 吞吐量
+│       │   └── Throughput.cpp
+│       │
+│       └── engine/                    # 仿真引擎
+│           ├── SimulationEngine.h     # 仿真引擎核心
+│           ├── SimulationEngine.cpp
+│           ├── SimulationConfig.h     # 仿真配置
+│           └── SimulationConfig.cpp
 │
 ├── include/                           # 公共头文件
 │   └── link16/                        # 对外接口
@@ -215,9 +222,9 @@ link16/                                # 项目根目录
 │       │   ├── MessageAPI.h           # 消息API
 │       │   ├── CodingAPI.h            # 编码API
 │       │   ├── PhysicalAPI.h          # 物理层API
-│       │   └── SimulationAPI.h        # 仿真API(新增)
+│       │   └── SimulationAPI.h        # 仿真API
 │       │
-│       └── simulation/                # 仿真接口(新增)
+│       └── simulation/                # 仿真接口
 │           ├── ChannelSimulation.h    # 信道仿真接口
 │           └── EndToEndSimulation.h   # 端到端仿真接口
 │
@@ -248,7 +255,7 @@ link16/                                # 项目根目录
 │   │   ├── protocol_tests/            # 协议层测试
 │   │   ├── coding_tests/              # 编码层测试
 │   │   ├── physical_tests/            # 物理层测试
-│   │   └── simulation_tests/          # 仿真模块测试(新增)
+│   │   └── simulation_tests/          # 仿真模块测试
 │   │
 │   ├── integration/                   # 集成测试
 │   │   ├── end_to_end_tests/          # 端到端测试

@@ -1,7 +1,8 @@
 #pragma once
+
 #include <string>
 #include <vector>
-#include <cstdint>
+#include <memory>
 
 namespace link16 {
 namespace coding {
@@ -9,91 +10,92 @@ namespace interleaving {
 
 /**
  * @brief 矩阵交织器类
- *
- * 矩阵交织器是一种常用的交织方法，它将数据按行填入矩阵，然后按列读出，
- * 从而实现数据的交织，增强抗干扰能力。
  */
 class MatrixInterleaver {
 public:
     /**
      * @brief 构造函数
-     * @param rows 矩阵行数
-     * @param cols 矩阵列数
+     * @param rows 行数
+     * @param cols 列数
      */
     MatrixInterleaver(int rows = 8, int cols = 8);
-
+    
     /**
      * @brief 析构函数
      */
     ~MatrixInterleaver();
-
+    
     /**
-     * @brief 交织数据
-     * @param data 原始数据
+     * @brief 交织函数
+     * @param data 要交织的数据
      * @return 交织后的数据
      */
     std::string interleave(const std::string& data);
-
+    
     /**
-     * @brief 解交织数据
+     * @brief 解交织函数
      * @param interleavedData 交织后的数据
      * @return 解交织后的数据
      */
     std::string deinterleave(const std::string& interleavedData);
-
-    /**
-     * @brief 交织二进制数据
-     * @param data 原始二进制数据
-     * @return 交织后的二进制数据
-     */
-    std::vector<bool> interleave(const std::vector<bool>& data);
-
-    /**
-     * @brief 解交织二进制数据
-     * @param interleavedData 交织后的二进制数据
-     * @return 解交织后的二进制数据
-     */
-    std::vector<bool> deinterleave(const std::vector<bool>& interleavedData);
-
-    /**
-     * @brief 交织字节数据
-     * @param data 原始字节数据
-     * @return 交织后的字节数据
-     */
-    std::vector<uint8_t> interleave(const std::vector<uint8_t>& data);
-
-    /**
-     * @brief 解交织字节数据
-     * @param interleavedData 交织后的字节数据
-     * @return 解交织后的字节数据
-     */
-    std::vector<uint8_t> deinterleave(const std::vector<uint8_t>& interleavedData);
-
+    
     /**
      * @brief 设置交织参数
-     * @param rows 矩阵行数
-     * @param cols 矩阵列数
+     * @param rows 行数
+     * @param cols 列数
      */
     void setParameters(int rows, int cols);
-
+    
     /**
      * @brief 获取行数
-     * @return 矩阵行数
+     * @return 行数
      */
     int getRows() const;
-
+    
     /**
      * @brief 获取列数
-     * @return 矩阵列数
+     * @return 列数
      */
     int getCols() const;
+    
+    /**
+     * @brief 获取交织大小
+     * @return 交织大小，即行数乘以列数
+     */
+    int getInterleaverSize() const;
+    
+    /**
+     * @brief 检查参数是否有效
+     * @param rows 行数
+     * @param cols 列数
+     * @return 参数是否有效
+     */
+    static bool isValidParameters(int rows, int cols);
+    
+    /**
+     * @brief 计算交织后的数据长度
+     * @param dataLength 原始数据长度
+     * @return 交织后的数据长度
+     */
+    int calculateInterleavedLength(int dataLength) const;
+    
+    /**
+     * @brief 计算原始数据长度
+     * @param interleavedLength 交织后的数据长度
+     * @return 原始数据长度
+     */
+    int calculateOriginalLength(int interleavedLength) const;
 
 private:
     // 行数
     int rows;
-
+    
     // 列数
     int cols;
+    
+    // 内部实现
+    class Impl;
+    std::unique_ptr<Impl> pImpl;
 };
 
 /**

@@ -62,16 +62,48 @@ bool Link16App::sendMessage(int n, int m, const std::string& message) {
     
     LOG_INFO("发送消息: J" + std::to_string(n) + "." + std::to_string(m) + " - " + message);
     
-    // 调用协议接口发送消息
-    int32_t result = encoder_Link16(n, m, const_cast<std::string&>(message));
-    
-    if (result != 0) {
-        LOG_ERROR("消息发送失败，错误码: " + std::to_string(result));
+    try {
+        // 1. 协议层处理 - 格式化Link16消息
+        protocol::STDPMsg stdpMsg;
+        if (!stdpMsg.formatMessage(n, m, message)) {
+            LOG_ERROR("消息格式化失败");
+            return false;
+        }
+        
+        // 2. 编码层处理 - Reed-Solomon编码
+        coding::ReedSolomon rs;
+        std::string encodedData = rs.encode(stdpMsg.getRawMsg());
+        
+        // 3. 编码层处理 - 加密
+        coding::AESCrypto aes;
+        std::string encryptedData = aes.encrypt(encodedData);
+        
+        // 4. 编码层处理 - 交织
+        coding::Interleaver interleaver;
+        std::string interleavedData = interleaver.interleave(encryptedData);
+        
+        // 5. 物理层处理 - 调制
+        physical::Modulator modulator;
+        std::vector<std::complex<double>> modulatedSignal = modulator.modulate(interleavedData);
+        
+        // 6. 物理层处理 - 跳频
+        physical::FrequencyHopping hopping;
+        std::vector<std::complex<double>> hoppedSignal = hopping.applyHopping(modulatedSignal);
+        
+        // 7. 物理层处理 - 发送
+        physical::Transmitter transmitter;
+        if (!transmitter.transmit(hoppedSignal)) {
+            LOG_ERROR("信号发送失败");
+            return false;
+        }
+        
+        LOG_INFO("消息发送成功");
+        return true;
+    }
+    catch (const std::exception& e) {
+        LOG_ERROR("消息发送过程中发生异常: " + std::string(e.what()));
         return false;
     }
-    
-    LOG_INFO("消息发送成功");
-    return true;
 }
 
 // 接收消息
@@ -83,16 +115,50 @@ bool Link16App::receiveMessage(std::string& message, int& n, int& m) {
     
     LOG_INFO("正在接收消息...");
     
-    // 调用协议接口接收消息
-    int32_t result = decoder_Link16(message, n, m);
-    
-    if (result != 0) {
-        LOG_ERROR("消息接收失败，错误码: " + std::to_string(result));
+    try {
+        // 1. 物理层处理 - 接收
+        physical::Receiver receiver;
+        std::vector<std::complex<double>> receivedSignal;
+        if (!receiver.receive(receivedSignal)) {
+            LOG_ERROR("信号接收失败");
+            return false;
+        }
+        
+        // 2. 物理层处理 - 解跳频
+        physical::FrequencyHopping hopping;
+        std::vector<std::complex<double>> dehoppedSignal = hopping.removeHopping(receivedSignal);
+        
+        // 3. 物理层处理 - 解调
+        physical::Modulator modulator;
+        std::string demodulatedData = modulator.demodulate(dehoppedSignal);
+        
+        // 4. 编码层处理 - 解交织
+        coding::Interleaver interleaver;
+        std::string deinterleavedData = interleaver.deinterleave(demodulatedData);
+        
+        // 5. 编码层处理 - 解密
+        coding::AESCrypto aes;
+        std::string decryptedData = aes.decrypt(deinterleavedData);
+        
+        // 6. 编码层处理 - Reed-Solomon解码
+        coding::ReedSolomon rs;
+        std::string decodedData = rs.decode(decryptedData);
+        
+        // 7. 协议层处理 - 解析Link16消息
+        protocol::STDPMsg stdpMsg;
+        stdpMsg.setRawMsg(decodedData);
+        if (!stdpMsg.parseMessage(n, m, message)) {
+            LOG_ERROR("消息解析失败");
+            return false;
+        }
+        
+        LOG_INFO("接收到消息: J" + std::to_string(n) + "." + std::to_string(m) + " - " + message);
+        return true;
+    }
+    catch (const std::exception& e) {
+        LOG_ERROR("消息接收过程中发生异常: " + std::string(e.what()));
         return false;
     }
-    
-    LOG_INFO("接收到消息: J" + std::to_string(n) + "." + std::to_string(m) + " - " + message);
-    return true;
 }
 
 // 关闭应用
