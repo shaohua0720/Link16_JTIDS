@@ -65,25 +65,36 @@ public:
     
     // 获取加密密钥
     const std::string& getEncryptionKey() const;
+    
+    // 新增方法，支持CodingAPI的功能
+    
+    // 生成AES随机密钥
+    std::string generateAESKey();
+    
+    // 设置AES密钥大小
+    bool setAESKeySize(int keySize);
+    
+    // 获取AES密钥大小
+    int getAESKeySize();
+    
+    // CRC校验计算
+    uint32_t calculateCRC32(const std::string& data);
+    
+    // CRC校验验证
+    bool verifyCRC32(const std::string& data, uint32_t crc);
 
 private:
-    // Reed-Solomon编码器
-    std::unique_ptr<ReedSolomon> rsEncoder;
-    
-    // AES加密器
-    std::unique_ptr<AESCrypto> aesEncoder;
-    
-    // 交织器
-    std::unique_ptr<Interleaver> interleaver;
-    
-    // BIP校验器
-    std::unique_ptr<BIPCoder> bipCoder;
+    // 初始化状态
+    bool initialized;
     
     // 加密密钥
     std::string encryptionKey;
     
-    // 初始化状态
-    bool initialized;
+    // 组件实例
+    std::unique_ptr<error_correction::RSCoder> rsEncoder;
+    std::unique_ptr<crypto::AESCrypto> aesEncoder;
+    std::unique_ptr<interleaving::Interleaver> interleaver;
+    std::unique_ptr<error_detection::BIPCoder> bipCoder;
 };
 
 } // namespace coding
